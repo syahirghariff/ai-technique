@@ -4,6 +4,7 @@ from flask_cors import CORS
 from torchvision import models, transforms
 from PIL import Image
 import torch
+from gevent.pywsgi import WSGIServer
 
 
 app = Flask(__name__)
@@ -43,6 +44,8 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    http_server = WSGIServer(('',5000), app)
+    http_server.serve_forever()
 
 

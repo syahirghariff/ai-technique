@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutGap="10px" style="width: 100%">
+
+    <div fxLayout="column" class="container" fxFlex fxLayoutAlign="center center">
+        <h2>Group 3: Fruit Classifier</h2>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="3px">
+            <span class="names" *ngFor="let name of names"> {{name}} </span>
+        </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutGap="50px" class="container" fxFlex fxLayoutAlign="center center">
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="10px">
+            <div (click)="uploadFile.click()">
+                <button mat-raised-button color="primary">
+                    <span> Choose Image </span>
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="image"></mat-icon>
+                </button>
+                <input #uploadFile (change)="upload($event)" type='file' style="display:none" accept="image/*" />
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                {{filename}}
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" *ngIf="url || results" fxLayoutGap="50px" fxLayoutGap.xs="10px">
+            <div *ngIf="url">
+                <img src={{url}} [ngStyle]="{'max-width': '400px','height':'auto'}" [ngStyle.xs]="{'max-width': '100%','height':'auto'}">
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="50px" fxLayoutGap.xs="0px" fxLayoutAlign="space-around end" *ngIf="results">
+                <div fxLayout="column" fxLayoutAlign="start center" *ngFor="let res of results">
+                    <span> {{res.title}} </span>
+                    <div class="bar" [style.background-color]="res.color" [style.height]='res.height'> </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <mat-progress-bar *ngIf="showProgress" mode="indeterminate"></mat-progress-bar>
+    </div>
+</div>
